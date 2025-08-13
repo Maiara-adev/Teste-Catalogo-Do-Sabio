@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev # Por padrão, ativa o perfil de desenvolvimento local
+
+app:
+  cache:
+    ttl:
+      default: 3600

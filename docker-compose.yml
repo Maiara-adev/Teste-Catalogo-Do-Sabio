@@ -1,0 +1,56 @@
+services:
+
+  postgres:
+    image: postgres:13
+    container_name: sabio-db
+    environment:
+      - POSTGRES_DB=catalogo
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # BLOCO HEALTHCHECK
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d catalogo"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Serviço de Cache
+  redis:
+    image: redis:alpine
+    container_name: sabio-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+    volumes:
+      - redis_data:/data
+
+  # Serviço da Aplicação
+  app:
+    build: .
+    container_name: sabio-app
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - backend
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  backend:
