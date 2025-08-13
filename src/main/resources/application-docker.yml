@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/catalogo
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  data:
+    redis:
+      url: redis://redis:6379
+
+auth:
+  jwt:
+    secret: QzcwQjAyQjctQUJDRC00ODQyLTgzNkMtREIwRUY5QUY3QkZDQUJDRDEyMzQ1Njc4OQlDRUZFR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5eg==
+    expiration: 86400000
+
+app:
+  cache:
+    ttl:
+      default: 3600
+      books: 300

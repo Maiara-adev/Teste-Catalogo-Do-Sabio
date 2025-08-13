@@ -1,0 +1,14 @@
+# Excluir diretórios de build
+/target/
+.idea/
+
+# Excluir arquivos de configuração de IDE e sistema operacional
+.classpath
+.project
+.settings/
+.vscode/
+
+# Excluir arquivos de metadados e logs
+*.log
+*.jfr
+/src/main/resources/META-INF/
